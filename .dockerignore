@@ -1,0 +1,8 @@
+node_modules
+.cotafacil-cache
+release
+dist
+dist-server
+.env
+.env.local
+.git
