@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: cotafacil
+    env: node
+    plan: free
+    buildCommand: npm install --legacy-peer-deps && npm run build && npm run build:server
+    startCommand: node dist-server/server.mjs
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: IS_CLOUD
+        value: true
+      - key: GEMINI_API_KEY
+        sync: false

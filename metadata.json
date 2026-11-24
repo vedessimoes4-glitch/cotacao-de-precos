@@ -1,0 +1,6 @@
+{
+  "name": "CotaFácil - Cotação de Preços & Pedidos por Fornecedor",
+  "description": "Aplicativo de mapa comparativo de cotações que encontra automaticamente o melhor preço por item, destaca o fornecedor vencedor e gera os pedidos de compra separados por fornecedor prontos para WhatsApp e Excel.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
