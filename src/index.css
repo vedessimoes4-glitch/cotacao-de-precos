@@ -47,6 +47,7 @@
 .table-scroll-container {
   overflow-x: scroll !important;
   scrollbar-color: #334155 #cbd5e1 !important;
+  scrollbar-gutter: stable;
 }
 
 .table-scroll-container::-webkit-scrollbar {
