@@ -1,0 +1,161 @@
+import { Supplier, ProductItem } from '../types/quotation';
+
+export const INITIAL_SUPPLIERS: Supplier[] = [
+  { id: 's1', name: 'Dimacol', phone: '31998765432' },
+  { id: 's2', name: 'Opção', phone: '31987654321' },
+  { id: 's3', name: 'Atacadão', phone: '31976543210' },
+  { id: 's4', name: 'Bartofil', phone: '31965432109' },
+  { id: 's5', name: 'Tambasa', phone: '31954321098' },
+  { id: 's6', name: 'Vonder', phone: '31943210987' },
+  { id: 's7', name: 'N. Casa', phone: '31932109876' },
+  { id: 's8', name: 'Mercante', phone: '31921098765' },
+  { id: 's9', name: 'FortLev', phone: '31910987654' },
+  { id: 's10', name: 'JR Distribuidora', phone: '31909876543' },
+];
+
+export const INITIAL_PRODUCTS: ProductItem[] = [
+  {
+    id: 'p1',
+    quantity: 100,
+    description: 'Cano PVC Soldável 25mm 6m (Tigre/FortLev)',
+    unit: 'BR',
+    prices: {
+      s1: 16.5,
+      s2: 17.2,
+      s3: 16.0,
+      s4: 15.8,
+      s5: 15.2,
+      s6: null,
+      s7: 15.9,
+      s8: 16.1,
+      s9: 14.8, // FortLev winner
+      s10: 15.5,
+    },
+  },
+  {
+    id: 'p2',
+    quantity: 50,
+    description: 'Torneira Esfera para Jardim 1/2" Metal',
+    unit: 'UN',
+    prices: {
+      s1: 18.9,
+      s2: 19.5,
+      s3: null,
+      s4: 17.8,
+      s5: 16.5, // Tambasa winner
+      s6: 22.0,
+      s7: 18.0,
+      s8: 17.2,
+      s9: null,
+      s10: 19.1,
+    },
+  },
+  {
+    id: 'p3',
+    quantity: 80,
+    description: 'Cimento CP II E-32 Saco 50kg',
+    unit: 'SC',
+    prices: {
+      s1: 31.5, // Dimacol winner
+      s2: 32.9,
+      s3: 31.8,
+      s4: 33.0,
+      s5: 32.5,
+      s6: null,
+      s7: 33.5,
+      s8: 34.0,
+      s9: null,
+      s10: 32.0,
+    },
+  },
+  {
+    id: 'p4',
+    quantity: 30,
+    description: 'Disco de Corte Fino 4.1/2" Inox / Aço',
+    unit: 'UN',
+    prices: {
+      s1: 4.5,
+      s2: 4.8,
+      s3: 4.2,
+      s4: 4.1,
+      s5: 4.3,
+      s6: 3.8, // Vonder winner
+      s7: 4.6,
+      s8: 4.4,
+      s9: null,
+      s10: 4.0,
+    },
+  },
+  {
+    id: 'p5',
+    quantity: 60,
+    description: 'Fita Isolante 19mm x 20m Antichama',
+    unit: 'RL',
+    prices: {
+      s1: 5.9,
+      s2: 6.2,
+      s3: 5.4,
+      s4: 5.1, // Bartofil winner
+      s5: 5.3,
+      s6: 5.8,
+      s7: 5.7,
+      s8: 5.6,
+      s9: null,
+      s10: 5.5,
+    },
+  },
+  {
+    id: 'p6',
+    quantity: 25,
+    description: 'Caixa d Água 500 Litros com Tampa',
+    unit: 'UN',
+    prices: {
+      s1: 265.0,
+      s2: 270.0,
+      s3: 259.0,
+      s4: 268.0,
+      s5: null,
+      s6: null,
+      s7: 275.0,
+      s8: null,
+      s9: 245.0, // FortLev winner
+      s10: 255.0,
+    },
+  },
+  {
+    id: 'p7',
+    quantity: 120,
+    description: 'Joelho 90 Graus Soldável 25mm PVC',
+    unit: 'UN',
+    prices: {
+      s1: 1.35,
+      s2: 1.4,
+      s3: 1.25,
+      s4: 1.3,
+      s5: 1.15, // Tambasa winner
+      s6: null,
+      s7: 1.38,
+      s8: 1.45,
+      s9: 1.2,
+      s10: 1.28,
+    },
+  },
+  {
+    id: 'p8',
+    quantity: 40,
+    description: 'Alicate Universal 8 Polegadas Isolado',
+    unit: 'UN',
+    prices: {
+      s1: 28.5,
+      s2: 29.9,
+      s3: null,
+      s4: 27.0,
+      s5: 26.5,
+      s6: 24.9, // Vonder winner
+      s7: 28.0,
+      s8: 27.5,
+      s9: null,
+      s10: 26.0,
+    },
+  },
+];
