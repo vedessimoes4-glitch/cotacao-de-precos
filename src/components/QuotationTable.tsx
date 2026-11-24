@@ -205,7 +205,7 @@ export const QuotationTable: React.FC<QuotationTableProps> = ({
       {/* Main High-Density Spreadsheet Table */}
       <div
         onScroll={() => hoveredImagePreview && setHoveredImagePreview(null)}
-        className="overflow-x-auto max-h-[70vh] relative"
+        className="table-scroll-container overflow-x-scroll max-h-[75vh] relative"
       >
         <table className="w-full text-left border-collapse text-xs">
           {/* Header Row - Dark Sleek Professional Header like Reference Image */}
