@@ -1,5 +1,5 @@
 // Service Worker para suporte a PWA (Progressive Web App)
-const CACHE_NAME = 'cotafacil-pwa-v1';
+const CACHE_NAME = 'cotafacil-pwa-v2';
 
 self.addEventListener('install', (event) => {
   self.skipWaiting();
