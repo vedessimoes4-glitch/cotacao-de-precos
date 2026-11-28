@@ -1246,7 +1246,20 @@ ${rawText ? `\nTexto extraído do documento:\n${rawText}` : ''}
 let activeHttpServer: import('http').Server | null = null;
 
 // Network Info Endpoint for Mobile & Local Access
-app.get('/api/network-info', (_req, res) => {
+app.get('/api/network-info', (req, res) => {
+  // Identifica se estamos rodando na nuvem (ex: Render, Railway, etc.)
+  const isCloud = Boolean(
+    process.env.RENDER ||
+    process.env.RENDER_EXTERNAL_URL ||
+    process.env.RAILWAY_STATIC_URL ||
+    process.env.FLY_APP_NAME ||
+    process.env.VERCEL ||
+    process.env.IS_CLOUD === 'true'
+  );
+
+  // Se estiver na nuvem (como no Render), usa a URL pública da aplicação
+  const cloudUrl = process.env.RENDER_EXTERNAL_URL || (req.get('host') ? `${req.protocol}://${req.get('host')}` : null);
+
   const interfaces = os.networkInterfaces();
   const addresses: string[] = [];
   for (const name of Object.keys(interfaces)) {
@@ -1260,11 +1273,18 @@ app.get('/api/network-info', (_req, res) => {
   const port = typeof address === 'object' && address ? address.port : PORT;
   const localUrl = `http://localhost:${port}`;
   const networkUrls = addresses.map((ip) => `http://${ip}:${port}`);
+
+  // Se estiver na nuvem ou acessado por domínio público/externo, prioriza a URL pública
+  const hostHeader = req.get('host');
+  const isPublicAccess = hostHeader && !hostHeader.includes('localhost') && !hostHeader.includes('127.0.0.1');
+  const primaryUrl = (isCloud && cloudUrl) || (isPublicAccess ? `${req.protocol}://${hostHeader}` : (networkUrls[0] || localUrl));
+
   res.json({
     port,
     localUrl,
     networkUrls,
-    primaryNetworkUrl: networkUrls[0] || localUrl,
+    isCloud: isCloud || Boolean(isPublicAccess),
+    primaryNetworkUrl: primaryUrl,
   });
 });
 

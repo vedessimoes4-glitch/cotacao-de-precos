@@ -11,6 +11,7 @@ interface NetworkInfo {
   localUrl: string;
   networkUrls: string[];
   primaryNetworkUrl: string;
+  isCloud?: boolean;
 }
 
 export const MobileAccessModal: React.FC<MobileAccessModalProps> = ({ isOpen, onClose }) => {
@@ -35,7 +36,20 @@ export const MobileAccessModal: React.FC<MobileAccessModalProps> = ({ isOpen, on
 
   if (!isOpen) return null;
 
-  const targetUrl = networkInfo?.primaryNetworkUrl || window.location.href;
+  // Detecção automática inteligente:
+  // Se estivermos acessando por domínio na internet (ex: onrender.com) ou se a API indicar nuvem,
+  // usa a URL atual da janela (window.location.origin) que funciona em qualquer 3G/4G/Wi-Fi no mundo inteiro!
+  const isCloudOrWeb =
+    networkInfo?.isCloud ||
+    (typeof window !== 'undefined' &&
+      !window.location.hostname.includes('localhost') &&
+      !window.location.hostname.includes('127.0.0.1') &&
+      !window.location.hostname.startsWith('10.') &&
+      !window.location.hostname.startsWith('192.168.'));
+
+  const targetUrl = isCloudOrWeb
+    ? window.location.origin
+    : (networkInfo?.primaryNetworkUrl || window.location.origin);
   const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=240x240&margin=10&data=${encodeURIComponent(
     targetUrl
   )}`;
@@ -118,18 +132,29 @@ export const MobileAccessModal: React.FC<MobileAccessModalProps> = ({ isOpen, on
 
           {/* Important instructions */}
           <div className="space-y-2.5 pt-1 border-t border-slate-100 text-xs text-slate-600">
-            <div className="flex items-start gap-2">
-              <Wifi className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-              <span>
-                <strong>Rede Wi-Fi:</strong> O celular precisa estar conectado na mesma rede Wi-Fi deste computador.
-              </span>
-            </div>
-            <div className="flex items-start gap-2">
-              <Globe className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
-              <span>
-                <strong>Fora de casa / 4G / Nuvem:</strong> Para acessar de qualquer lugar pela internet sem depender deste computador ligado, use a opção de publicação na nuvem.
-              </span>
-            </div>
+            {isCloudOrWeb ? (
+              <div className="flex items-start gap-2 text-emerald-800 bg-emerald-50/80 p-2.5 rounded-lg border border-emerald-100">
+                <Globe className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                <span>
+                  <strong>Acesso Global Detectado:</strong> Você está usando a versão em nuvem. Qualquer celular com internet (Wi-Fi ou 4G/5G) pode escanear o QR Code e abrir diretamente!
+                </span>
+              </div>
+            ) : (
+              <>
+                <div className="flex items-start gap-2">
+                  <Wifi className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                  <span>
+                    <strong>Rede Local Wi-Fi:</strong> O celular precisa estar conectado na mesma rede Wi-Fi deste computador.
+                  </span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <Globe className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
+                  <span>
+                    <strong>Fora de casa / 4G:</strong> Para acessar de qualquer lugar pela internet sem depender deste computador ligado, acesse o link publicado na nuvem.
+                  </span>
+                </div>
+              </>
+            )}
           </div>
         </div>
 
